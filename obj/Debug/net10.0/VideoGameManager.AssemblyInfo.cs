@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("VideoGameManager")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ce18c29ec0e6149ad132b317a7341142a3b2a8a9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e8baebda8beaacfbe4a7b7da7e519a5aa6846e10")]
 [assembly: System.Reflection.AssemblyProductAttribute("VideoGameManager")]
 [assembly: System.Reflection.AssemblyTitleAttribute("VideoGameManager")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
