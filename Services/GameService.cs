@@ -1,0 +1,58 @@
+﻿using VideoGameManager.Models;
+
+namespace VideoGameManager.Services
+{
+    public class GameService
+    {
+        private int _nextId = 4;
+
+        private readonly List<Game> _games = new()
+        {
+            new() {Id = 1, Title = "Tomodachi Life: Living the Dream", Genre = "Simulation", Year = 2026, Score = 10, Description = "One of the best simulation games."},
+            new() {Id = 2, Title = "Assassin's Creed IV: Black Flag", Genre = "Action", Year = 2013, Score = 9.2},
+            new() {Id = 3, Title = "Cars", Genre = "Carreras", Year = 2006, Score = 9}
+        };
+
+        /// <summary>
+        /// Returns the complete list of games stored in the system.
+        /// </summary>
+        /// <returns>A list of all Game objects.</returns>
+        public List<Game> GetAll() => _games;
+
+        /// <summary>
+        /// Looks for a specific game using its ID.
+        /// </summary>
+        /// <param name="id">The ID of the game to find.</param>
+        /// <returns>The game that matches the ID, or null if it is not found.</returns>
+        public Game GetById(int id) => _games.FirstOrDefault(g => g.Id == id);
+
+        /// <summary>
+        /// Adds a new game to the list.
+        /// </summary>
+        /// <param name="game">The game object to be added.</param>
+        public void Add(Game game)
+        {
+            _games.Add(game);
+        }
+
+        /// <summary>
+        /// Updates an existing game in the list if its ID matches.
+        /// </summary>
+        /// <param name="game">The game object with the updated information.</param>
+        public void Update(Game game)
+        {
+            var index = _games.FindIndex(g => g.Id == game.Id);
+            if (index >= 0) _games[index] = game;
+        }
+
+        /// <summary>
+        /// Removes a game from the list based on its ID.
+        /// </summary>
+        /// <param name="id">The ID of the game to delete.</param>
+        public void Delete(int id)
+        {
+            var game = GetById(id);
+            if (game != null) _games.Remove(game);
+        }
+    }
+}
