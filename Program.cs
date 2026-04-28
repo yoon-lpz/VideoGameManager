@@ -22,6 +22,12 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+app.MapGet("/", context =>
+{
+    context.Response.Redirect("/Games/Index");
+    return Task.CompletedTask;
+});
+
 app.MapStaticAssets();
 app.MapRazorPages()
    .WithStaticAssets();
