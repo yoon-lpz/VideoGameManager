@@ -30,6 +30,6 @@ namespace VideoGameManager.Models
         [Range(0, 10, ErrorMessage = ScoreError)]
         public double Score { get => _score; set => _score = value; }
 
-        public string Description { get => _description; set => _description = value; } 
+        public string? Description { get => _description; set => _description = value; } 
     }
 }

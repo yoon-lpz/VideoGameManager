@@ -16,7 +16,15 @@ namespace VideoGameManager.Services
         {
             if (!File.Exists(repositoryPath)) return new List<Game>();
             _json = File.ReadAllText(repositoryPath);
-            return JsonSerializer.Deserialize<List<Game>>(_json) ?? new List<Game>();
+
+            try
+            {
+                return JsonSerializer.Deserialize<List<Game>>(_json) ?? new List<Game>();
+            }
+            catch (Exception e)
+            {
+                return new List<Game>();
+            }
         }
 
         /// <summary>
