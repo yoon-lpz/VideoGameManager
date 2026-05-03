@@ -7,15 +7,17 @@ namespace VideoGameManager.Pages.Games
 {
     public class FilesModel : PageModel
     {
-        private readonly GameRepository _repository;
         private readonly GameService _gameService;
+        private readonly GameRepository _repository;
+        private readonly GamesExporter _exporter;
         private List<Game> _games;
         public List<string> Log { get; set; } = new();
 
-        public FilesModel(GameService gameService, GameRepository repository)
+        public FilesModel(GameService gameService, GameRepository repository, GamesExporter gamesExporter)
         {
             _gameService = gameService;
             _repository = repository;
+            _exporter = gamesExporter;
         }
 
         public void OnGet()
@@ -37,6 +39,36 @@ namespace VideoGameManager.Pages.Games
             _games = _repository.LoadAll();
             _gameService.GetAll().Clear();
             _gameService.GetAll().AddRange(_games);
+            return RedirectToPage();
+        }
+
+        public IActionResult OnPostExportCsv()
+        {
+            var _games = _gameService.GetAll();
+
+            if (_games == null || !_games.Any())
+            {
+                return RedirectToPage();
+            }
+
+            _exporter.ExportToCsv(_games);
+            return RedirectToPage();
+        }
+
+        public IActionResult OnPostImportCsv()
+        {
+            if (!System.IO.File.Exists(_exporter.csvPath))
+            {
+                return RedirectToPage();
+            }
+            var _games = _exporter.ImportFromCsv();
+
+            if (_games != null && _games.Any())
+            {
+                _gameService.GetAll().Clear();
+                _gameService.GetAll().AddRange(_games);
+            }
+
             return RedirectToPage();
         }
     }
