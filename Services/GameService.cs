@@ -5,15 +5,15 @@ namespace VideoGameManager.Services
 {
     public class GameService
     {
-        private int _nextId = 4;
-        private string _line,
-            _logPath = Path.GetFullPath(@".\wwwroot\data\activity_log.txt");
+        private static int _nextId = 4;
+        private string _line;
         private readonly List<Game> _games = new()
         {
             new() {Id = 1, Title = "Tomodachi Life: Living the Dream", Genre = "Simulation", Year = 2026, Score = 10, Description = "One of the best simulation games."},
             new() {Id = 2, Title = "Assassin's Creed IV: Black Flag", Genre = "Action", Year = 2013, Score = 9.2},
             new() {Id = 3, Title = "Cars", Genre = "Carreras", Year = 2006, Score = 9}
         };
+        public string logPath = Path.GetFullPath(@".\wwwroot\data\activity_log.txt");
 
         /// <summary>
         /// Returns the complete list of games stored in the system.
@@ -34,6 +34,8 @@ namespace VideoGameManager.Services
         /// <param name="game">The game object to be added.</param>
         public void Add(Game game)
         {
+            game.Id = _nextId;
+            _nextId++;
             _games.Add(game);
             LogActivity("ADD", game);
         }
@@ -68,7 +70,7 @@ namespace VideoGameManager.Services
         private void LogActivity(string action, Game game)
         {
             _line = $"[{DateTime.Now:yy/MM/dd HH:mm:ss}] [{action}] {game.Title}{Environment.NewLine}";
-            File.AppendAllText(_logPath, _line);
+            File.AppendAllText(logPath, _line);
         }
     }
 }
