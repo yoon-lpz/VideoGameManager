@@ -17,12 +17,9 @@
         {
             @foreach (var line in Model.Log)
             {
-                <div style="padding: 12px 15px; display: flex; align-items: flex-start; gap: 10px;">
-                    
-                    <p style="margin: 0; font-size: 15px; color: #555; line-height: 1.4;">
-                        @line
-                    </p>
-                </div>
+                <p style="padding: 12px 15px; margin: 0; font-size: 15px; color: #555; line-height: 1.4;">
+                    @line
+                </p>
             }
         }
         else
