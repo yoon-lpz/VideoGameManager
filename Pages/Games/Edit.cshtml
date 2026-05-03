@@ -43,7 +43,7 @@
 
         <div style="background-color: #f4fbf9; padding: 15px; border-radius: 4px; margin-bottom: 25px;">
             <label asp-for="Game.Score" style="display: block; font-weight: bold; color: #555; margin-bottom: 8px; font-size: 15px;">Score (1-10)</label>
-            <input asp-for="Game.Score" type="number" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; font-size: 15px; outline-color: #88d8c0;" />
+            <input asp-for="Game.Score" type="number" step="any" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; font-size: 15px; outline-color: #88d8c0;" />
             <span asp-validation-for="Game.Score" style="color: #e74c3c; font-size: 12px;"></span>
         </div>
 
