@@ -1,0 +1,59 @@
+﻿@page
+@model VideoGameManager.Pages.Games.IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div>
+    <table style="border-collapse: collapse; width: 100%;">
+        <thead>
+            <tr style="background-color: #88d8c0; color: #fafafa;">
+                <th style="padding: 15px 20px; border-bottom: 2px solid #77c7af; text-align: left;">Title</th>
+                <th style="padding: 15px 20px; border-bottom: 2px solid #77c7af; text-align: left;">Genre</th>
+                <th style="padding: 15px 20px; border-bottom: 2px solid #77c7af; text-align: left;">Year</th>
+                <th style="padding: 15px 20px; border-bottom: 2px solid #77c7af; text-align: left;">Score</th>
+                <th style="padding: 15px 20px; border-bottom: 2px solid #77c7af; text-align: left;">Description</th>
+                
+                <th style="padding: 15px 20px; border-bottom: 2px solid #77c7af; text-align: left;"></th>
+            </tr>
+        </thead>
+        @foreach (var game in Model.Games)
+        {
+            @if (game.Id % 2 == 0)
+            {
+                <tr style="background-color: #fafafa; border-bottom: 1px solid #e0e0e0;">
+                    <td style="padding: 12px 15px;">@game.Title</td>
+                    <td style="padding: 12px 15px;">@game.Genre</td>
+                    <td style="padding: 12px 15px;">@game.Year</td>
+                    <td style="padding: 12px 15px; font-weight: bold;">@game.Score</td>
+                    @if (String.IsNullOrWhiteSpace(game.Description))
+                    {
+                        <td style="padding: 12px 15px;">No description available</td>
+                    } else
+                    {
+                        <td style="padding: 12px 15px;">@game.Description</td>
+                    }
+                    <td style="padding: 12px 15px;"><a style="color: #88d8c0" asp-page="./Details" asp-route-id="@game.Id">View details</a></td>
+                    
+                </tr>
+            } else
+            {
+                <tr style="background-color: #eaf7f3; border-bottom: 1px solid #e0e0e0;">
+                    <td style="padding: 12px 15px;">@game.Title</td>
+                    <td style="padding: 12px 15px;">@game.Genre</td>
+                    <td style="padding: 12px 15px;">@game.Year</td>
+                    <td style="padding: 12px 15px; font-weight: bold;">@game.Score</td>
+                    @if (String.IsNullOrWhiteSpace(game.Description))
+                    {
+                        <td style="padding: 12px 15px;">No description available</td>
+                    } else
+                    {
+                        <td style="padding: 12px 15px;">@game.Description</td>
+                    }
+                    <td style="padding: 12px 15px;"><a style="color: #88d8c0" asp-page="./Details" asp-route-id="@game.Id">View details</a></td>
+                </tr>
+            }
+        }
+    </table>
+</div>
+
