@@ -1,11 +1,13 @@
-﻿using VideoGameManager.Models;
+﻿using Microsoft.AspNetCore.Components.Web;
+using VideoGameManager.Models;
 
 namespace VideoGameManager.Services
 {
     public class GameService
     {
         private int _nextId = 4;
-
+        private string _line,
+            _logPath = Path.GetFullPath(@".\wwwroot\data\activity_log.txt");
         private readonly List<Game> _games = new()
         {
             new() {Id = 1, Title = "Tomodachi Life: Living the Dream", Genre = "Simulation", Year = 2026, Score = 10, Description = "One of the best simulation games."},
@@ -33,6 +35,7 @@ namespace VideoGameManager.Services
         public void Add(Game game)
         {
             _games.Add(game);
+            LogActivity("ADD", game);
         }
 
         /// <summary>
@@ -43,6 +46,7 @@ namespace VideoGameManager.Services
         {
             var index = _games.FindIndex(g => g.Id == game.Id);
             if (index >= 0) _games[index] = game;
+            LogActivity("UPDATE", game);
         }
 
         /// <summary>
@@ -53,6 +57,18 @@ namespace VideoGameManager.Services
         {
             var game = GetById(id);
             if (game != null) _games.Remove(game);
+            LogActivity("DELETE", game);
+        }
+
+        /// <summary>
+        /// Logs a specific action to a text file with a timestamp.
+        /// </summary>
+        /// <param name="action">The action being recorded.</param>
+        /// <param name="game">The <see cref="Game"/> object whose title will be logged.</param>
+        private void LogActivity(string action, Game game)
+        {
+            _line = $"[{DateTime.Now:yy/MM/dd HH:mm:ss}] [{action}] {game.Title}{Environment.NewLine}";
+            File.AppendAllText(_logPath, _line);
         }
     }
 }
