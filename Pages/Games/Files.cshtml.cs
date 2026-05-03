@@ -10,14 +10,16 @@ namespace VideoGameManager.Pages.Games
         private readonly GameService _gameService;
         private readonly GameRepository _repository;
         private readonly GamesExporter _exporter;
+        private readonly GamesRanking _ranking;
         private List<Game> _games;
         public List<string> Log { get; set; } = new();
 
-        public FilesModel(GameService gameService, GameRepository repository, GamesExporter gamesExporter)
+        public FilesModel(GameService gameService, GameRepository repository, GamesExporter gamesExporter, GamesRanking gamesRanking)
         {
             _gameService = gameService;
             _repository = repository;
             _exporter = gamesExporter;
+            _ranking = gamesRanking;
         }
 
         public void OnGet()
@@ -69,6 +71,12 @@ namespace VideoGameManager.Pages.Games
                 _gameService.GetAll().AddRange(_games);
             }
 
+            return RedirectToPage();
+        }
+
+        public IActionResult OnPostGenerateXml()
+        {
+            _ranking.GetRanking(_gameService.GetAll());
             return RedirectToPage();
         }
     }
