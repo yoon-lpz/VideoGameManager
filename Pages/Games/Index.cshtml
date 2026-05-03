@@ -4,56 +4,45 @@
     ViewData["Title"] = "Home page";
 }
 
-<div>
-    <table style="border-collapse: collapse; width: 100%;">
+<div style="font-family: 'Segoe UI'; margin: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-radius: 8px; overflow: hidden; border: 1px solid #e0e0e0;">
+    <table style="border-collapse: collapse; width: 100%; background-color: white;">
         <thead>
-            <tr style="background-color: #88d8c0; color: #fafafa;">
-                <th style="padding: 15px 20px; border-bottom: 2px solid #77c7af; text-align: left;">Title</th>
-                <th style="padding: 15px 20px; border-bottom: 2px solid #77c7af; text-align: left;">Genre</th>
-                <th style="padding: 15px 20px; border-bottom: 2px solid #77c7af; text-align: left;">Year</th>
-                <th style="padding: 15px 20px; border-bottom: 2px solid #77c7af; text-align: left;">Score</th>
-                <th style="padding: 15px 20px; border-bottom: 2px solid #77c7af; text-align: left;">Description</th>
-                
-                <th style="padding: 15px 20px; border-bottom: 2px solid #77c7af; text-align: left;"></th>
+            <tr style="background-color: #88d8c0; color: white;">
+                <th style="padding: 18px 20px; text-align: left; font-weight: 600; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px;">Title</th>
+                <th style="padding: 18px 20px; text-align: left; font-weight: 600; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px;">Genre</th>
+                <th style="padding: 18px 20px; text-align: left; font-weight: 600; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px;">Year</th>
+                <th style="padding: 18px 20px; text-align: left; font-weight: 600; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px;">Score</th>
+                <th style="padding: 18px 20px; text-align: left; font-weight: 600; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px;">Description</th>
+                <th style="padding: 18px 20px; width: 120px;"></th>
             </tr>
         </thead>
-        @foreach (var game in Model.Games)
-        {
-            @if (game.Id % 2 == 0)
+        <tbody>
+            @foreach (var game in Model.Games)
             {
-                <tr style="background-color: #fafafa; border-bottom: 1px solid #e0e0e0;">
-                    <td style="padding: 12px 15px;">@game.Title</td>
-                    <td style="padding: 12px 15px;">@game.Genre</td>
-                    <td style="padding: 12px 15px;">@game.Year</td>
-                    <td style="padding: 12px 15px; font-weight: bold;">@game.Score</td>
-                    @if (String.IsNullOrWhiteSpace(game.Description))
-                    {
-                        <td style="padding: 12px 15px;">No description available</td>
-                    } else
-                    {
-                        <td style="padding: 12px 15px;">@game.Description</td>
-                    }
-                    <td style="padding: 12px 15px;"><a style="color: #88d8c0" asp-page="./Details" asp-route-id="@game.Id">View details</a></td>
-                    
-                </tr>
-            } else
-            {
-                <tr style="background-color: #eaf7f3; border-bottom: 1px solid #e0e0e0;">
-                    <td style="padding: 12px 15px;">@game.Title</td>
-                    <td style="padding: 12px 15px;">@game.Genre</td>
-                    <td style="padding: 12px 15px;">@game.Year</td>
-                    <td style="padding: 12px 15px; font-weight: bold;">@game.Score</td>
-                    @if (String.IsNullOrWhiteSpace(game.Description))
-                    {
-                        <td style="padding: 12px 15px;">No description available</td>
-                    } else
-                    {
-                        <td style="padding: 12px 15px;">@game.Description</td>
-                    }
-                    <td style="padding: 12px 15px;"><a style="color: #88d8c0" asp-page="./Details" asp-route-id="@game.Id">View details</a></td>
+                var rowColor = (game.Id % 2 == 0) ? "#ffffff" : "#f8fdfb";
+                <tr style="background-color: @rowColor; border-bottom: 1px solid #eee; transition: background-color 0.3s;">
+                    <td style="padding: 15px 20px; font-weight: 500; color: #333;">@game.Title</td>
+                    <td style="padding: 15px 20px; color: #666;">
+                        <span style="background: #eaf7f3; color: #6bb39e; padding: 4px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: bold;">
+                            @game.Genre
+                        </span>
+                    </td>
+                    <td style="padding: 15px 20px; color: #777;">@game.Year</td>
+                    <td style="padding: 15px 20px;">
+                        <span style="font-weight: bold; color: #88d8c0;">@game.Score</span><span style="font-size: 0.8rem; color: #ccc;">/10</span>
+                    </td>
+                    <td style="padding: 15px 20px; color: #888; font-size: 0.9rem; max-width: 300px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        @(string.IsNullOrWhiteSpace(game.Description) ? "No description" : game.Description)
+                    </td>
+                    <td style="padding: 15px 20px; text-align: right;">
+                        <a asp-page="./Details" asp-route-id="@game.Id"
+                               style="text-decoration: none; color: #88d8c0; border: 1px solid #88d8c0; padding: 6px 12px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; display: inline-block;">
+                            DETAILS
+                        </a>
+                    </td>
                 </tr>
             }
-        }
+        </tbody>
     </table>
 </div>
 

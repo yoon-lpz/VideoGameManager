@@ -1,12 +1,85 @@
 ﻿@page "{id:int}"
 @model VideoGameManager.Pages.Games.DetailsModel
 @{
-	ViewData["Title"] = Games.;
+	ViewData["Title"] = Model.Game.Title;
 }
+<div style="font-family: 'Segoe UI'; max-width: 600px; margin: 30px auto; border: 2px solid #88d8c0; display: flex; min-height: 300px;">
+    
+    <div style="background-color: #88d8c0; width: 60px; display: flex; align-items: center; justify-content: center;">
+        <span style="transform: rotate(-90deg); color: white; font-weight: bold; white-space: nowrap; font-size: 1.2rem; letter-spacing: 3px;">
+            DETAILS
+        </span>
+    </div>
 
-<div>
-	<h1 sytle = "color: #88d8c0"></h1>
+    <div style="padding: 25px; flex-grow: 1; background-color: white;">
+        <h1 style="margin: 0 0 20px 0; color: #444; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+            @Model.Game.Title
+        </h1>
 
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+            <tr>
+                <td style="padding: 8px 0; color: #88d8c0; font-weight: bold; width: 30%;">Genre</td>
+                <td style="padding: 8px 0;">@Model.Game.Genre</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px 0; color: #88d8c0; font-weight: bold;">Year</td>
+                <td style="padding: 8px 0;">@Model.Game.Year</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px 0; color: #88d8c0; font-weight: bold; vertical-align: top;">Info</td>
+                <td style="padding: 8px 0; color: #666; line-height: 1.4;">
+                    @(string.IsNullOrWhiteSpace(Model.Game.Description) ? "No description." : Model.Game.Description)
+                </td>
+            </tr>
+        </table>
+
+        <div style="background-color: #f4fbf9; padding: 15px; border-radius: 4px; display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-weight: bold; color: #555;">Score</span>
+            <div>
+                @for (int i = 0; i < Model.FilledStars; i++)
+                {
+                    <span style="color: #88d8c0; font-size: 24px;">★</span>
+                }
+                @for (int i = 0; i < Model.EmptyStars; i++)
+                {
+                    <span style="color: #ddd; font-size: 24px;">☆</span>
+                }
+                <strong style="margin-left: 10px; font-size: 1.1rem;">@Model.Game.Score</strong>
+            </div>
+        </div>
+
+        <div style="margin-top: 25px;">
+            <a asp-page="./Index" style="text-decoration: none; color: #88d8c0; font-size: 0.9rem; border: 1px solid #88d8c0; padding: 5px 15px; border-radius: 20px;">
+                Return to list
+            </a>
+        </div>
+    </div>
 </div>
 
-★☆
+
+<!--
+<div>
+	<h1 style="color: #88d8c0">@Model.Game.Title</h1>
+	<p><strong>Title</strong>: @Model.Game.Title</p>
+	<p><strong>Genre</strong>: @Model.Game.Genre</p>
+	<p><strong>Release year</strong>: @Model.Game.Year</p>
+	<p><strong>Description</strong>: @Model.Game.Description</p>
+	<div style="background-color: #fafafa; border-radius: 10px; padding: 20px">
+		<p><strong>Score</strong></p>
+		<p>
+			@for (int i = 0; i < Model.FilledStars; i++)
+			{
+				<span style="color: #88c8c0; font-size: 30px">★</span>
+			}
+			@for (int i = 0; i < Model.EmptyStars; i++)
+			{
+				<span style="font-size: 30px">☆</span>
+			}
+			 <span>@Model.Game.Score</span>
+		</p>
+		
+	</div>
+</div>
+
+-->
+

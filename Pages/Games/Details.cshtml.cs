@@ -7,6 +7,7 @@ namespace VideoGameManager.Pages.Games
 {
     public class DetailsModel : PageModel
     {
+        public int EmptyStars, FilledStars;
         private readonly GameService _gameService;
         public Game Game { get; set; }
 
@@ -18,6 +19,8 @@ namespace VideoGameManager.Pages.Games
         public void OnGet(int id)
         {
             Game = _gameService.GetById(id);
+            FilledStars = (int) Game.Score / 2;
+            EmptyStars = 5 - FilledStars;
         }
     }
 }
